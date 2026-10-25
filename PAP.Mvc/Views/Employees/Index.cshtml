@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PAP.DataAccess.Employee>
+
+@{
+    ViewBag.Title = "Employees";
+    var items = Model != null ? Model.ToList() : new List<PAP.DataAccess.Employee>();
+}
+
+<main>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-2">Employees</h1>
+            <p class="text-muted mb-0">
+                @if (items.Count >= 100)
+                {
+                    <text>Showing the first 100 records</text>
+                }
+                else
+                {
+                    <text>@items.Count record@(items.Count == 1 ? "" : "s")</text>
+                }
+            </p>
+        </div>
+    </div>
+
+    @if (!items.Any())
+    {
+        <div class="alert alert-info" role="alert">
+            There is no data to show yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Active</th>
+                        <th scope="col">Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in items)
+                    {
+                        <tr>
+                            <td>@x.Id</td>
+                            <td>@(x.Role.Name)</td>
+                            <td>@x.FirstName</td>
+                            <td>@x.LastName</td>
+                            <td>@x.Email</td>
+                            <td>@(x.IsActive ? "Yes" : "No")</td>
+                            <td>@x.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</main>

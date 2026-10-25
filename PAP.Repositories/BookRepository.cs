@@ -8,6 +8,11 @@ namespace PAP.Repositories
 {
     public class BookRepository : RepositoryBase<Book>
     {
+        protected override IQueryable<Book> Query()
+        {
+            return _set.OrderBy(x => x.Id);
+        }
+
         public IEnumerable<Book> MyBooks()
         {
             // queryable

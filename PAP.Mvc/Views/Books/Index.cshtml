@@ -1,0 +1,71 @@
+﻿@model IEnumerable<PAP.DataAccess.Book>
+
+@{
+    ViewBag.Title = "Books";
+    var items = Model != null ? Model.ToList() : new List<PAP.DataAccess.Book>();
+}
+
+<main>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-2">Books</h1>
+            <p class="text-muted mb-0">
+                @if (items.Count >= 100)
+                {
+                    <text>Showing the first 100 records</text>
+                }
+                else
+                {
+                    <text>@items.Count record@(items.Count == 1 ? "" : "s")</text>
+                }
+            </p>
+        </div>
+    </div>
+
+    @if (!items.Any())
+    {
+        <div class="alert alert-info" role="alert">
+            There is no data to show yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Publisher</th>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Pages</th>
+                        <th scope="col">Language</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">In stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in items)
+                    {
+                        <tr>
+                            <td>@x.Id</td>
+                            <td>@x.Title</td>
+                            <td>@x.Author</td>
+                            <td>@x.Genre</td>
+                            <td>@x.Category</td>
+                            <td>@x.Publisher</td>
+                            <td>@x.ISBN</td>
+                            <td>@x.Pages</td>
+                            <td>@x.Language</td>
+                            <td>@x.Price.ToString("C")</td>
+                            <td>@(x.IsInStock ? "Yes" : "No")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</main>

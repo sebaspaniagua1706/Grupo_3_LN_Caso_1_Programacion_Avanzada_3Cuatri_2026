@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PAP.DataAccess.Order>
+
+@{
+    ViewBag.Title = "Orders";
+    var items = Model != null ? Model.ToList() : new List<PAP.DataAccess.Order>();
+}
+
+<main>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h2 mb-2">Orders</h1>
+            <p class="text-muted mb-0">
+                @if (items.Count >= 100)
+                {
+                    <text>Showing the first 100 records</text>
+                }
+                else
+                {
+                    <text>@items.Count record@(items.Count == 1 ? "" : "s")</text>
+                }
+            </p>
+        </div>
+    </div>
+
+    @if (!items.Any())
+    {
+        <div class="alert alert-info" role="alert">
+            There is no data to show yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col">Tax</th>
+                        <th scope="col">Shipping</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var x in items)
+                    {
+                        <tr>
+                            <td>@x.Id</td>
+                            <td>@(x.Customer.FirstName + " " + x.Customer.LastName)</td>
+                            <td>@x.OrderDate.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@x.Status</td>
+                            <td>@x.Subtotal.ToString("C")</td>
+                            <td>@x.TaxAmount.ToString("C")</td>
+                            <td>@x.ShippingCost.ToString("C")</td>
+                            <td>@x.Total.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</main>

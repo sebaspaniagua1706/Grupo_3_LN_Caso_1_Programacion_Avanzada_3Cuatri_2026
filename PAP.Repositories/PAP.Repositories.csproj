@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\EntityFramework.6.5.2\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.2\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -52,6 +52,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookRepository.cs" />
+    <Compile Include="AuthorRepository.cs" />
+    <Compile Include="PublisherRepository.cs" />
+    <Compile Include="CategoryRepository.cs" />
+    <Compile Include="GenreRepository.cs" />
+    <Compile Include="CustomerRepository.cs" />
+    <Compile Include="AddressRepository.cs" />
+    <Compile Include="OrderRepository.cs" />
+    <Compile Include="OrderItemRepository.cs" />
+    <Compile Include="PaymentRepository.cs" />
+    <Compile Include="ShoppingCartRepository.cs" />
+    <Compile Include="CartItemRepository.cs" />
+    <Compile Include="ReviewRepository.cs" />
+    <Compile Include="InventoryRepository.cs" />
+    <Compile Include="SupplierRepository.cs" />
+    <Compile Include="PurchaseOrderRepository.cs" />
+    <Compile Include="PurchaseOrderItemRepository.cs" />
+    <Compile Include="RoleRepository.cs" />
+    <Compile Include="EmployeeRepository.cs" />
+    <Compile Include="BookAuthorRepository.cs" />
     <Compile Include="RepositoryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

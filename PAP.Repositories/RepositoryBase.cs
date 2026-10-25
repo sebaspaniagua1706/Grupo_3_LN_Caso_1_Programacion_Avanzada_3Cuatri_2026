@@ -47,6 +47,26 @@ namespace PAP.Repositories
         /// Saves all pending changes to the database.
         /// </summary>
         void Save();
+
+        /// <summary>
+        /// Retrieves the first N entities (used by the Index views, N = 100).
+        /// </summary>
+        IEnumerable<T> GetTop(int count);
+
+        /// <summary>
+        /// Adds many entities with a single SaveChanges (used by PAP.Generators).
+        /// </summary>
+        void AddRange(IEnumerable<T> entities);
+
+        /// <summary>
+        /// True if the table has at least one row.
+        /// </summary>
+        bool Any();
+
+        /// <summary>
+        /// Number of rows in the table.
+        /// </summary>
+        int Count();
     }
 
     /// <summary>
@@ -137,6 +157,57 @@ namespace PAP.Repositories
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Base query used by GetTop. Concrete repositories override it to add
+        /// Include(...) for related tables and a deterministic OrderBy.
+        /// </summary>
+        protected virtual IQueryable<T> Query()
+        {
+            return _set;
+        }
+
+        /// <summary>
+        /// Retrieves the first N entities.
+        /// </summary>
+        public virtual IEnumerable<T> GetTop(int count)
+        {
+            return Query().Take(count).ToList();
+        }
+
+        /// <summary>
+        /// Adds many entities with a single SaveChanges.
+        /// </summary>
+        public void AddRange(IEnumerable<T> entities)
+        {
+            var previous = _context.Configuration.AutoDetectChangesEnabled;
+            _context.Configuration.AutoDetectChangesEnabled = false;
+            try
+            {
+                _set.AddRange(entities);
+                Save();
+            }
+            finally
+            {
+                _context.Configuration.AutoDetectChangesEnabled = previous;
+            }
+        }
+
+        /// <summary>
+        /// True if the table has at least one row.
+        /// </summary>
+        public bool Any()
+        {
+            return _set.Any();
+        }
+
+        /// <summary>
+        /// Number of rows in the table.
+        /// </summary>
+        public int Count()
+        {
+            return _set.Count();
         }
     }
 }

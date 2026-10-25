@@ -46,10 +46,28 @@
     <Compile Include="BookAuthorGenerator.cs" />
     <Compile Include="BookGenerator.cs" />
     <Compile Include="CartltemGenerator.cs" />
+    <Compile Include="CategoryGenerator.cs" />
     <Compile Include="CustomerGenerator.cs" />
     <Compile Include="EmployeeGenerator.cs" />
     <Compile Include="GenreGenerator.cs" />
+    <Compile Include="InventoryGenerator.cs" />
+    <Compile Include="OrderGenerator.cs" />
+    <Compile Include="OrderItemGenerator.cs" />
+    <Compile Include="PaymentGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublisherGenerator.cs" />
+    <Compile Include="PurchaseOrderGenerator.cs" />
+    <Compile Include="PurchaseOrderItemGenerator.cs" />
+    <Compile Include="ReviewGenerator.cs" />
+    <Compile Include="RoleGenerator.cs" />
+    <Compile Include="ShoppingCartGenerator.cs" />
+    <Compile Include="SupplierGenerator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PAP.Business\PAP.Business.csproj">
+      <Project>{033e721b-af6d-4153-9f9c-ca71591bf947}</Project>
+      <Name>PAP.Business</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
