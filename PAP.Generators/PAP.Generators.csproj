@@ -48,10 +48,12 @@
     <Compile Include="BookGenerator.cs" />
     <Compile Include="CartItemGenerator.cs" />
     <Compile Include="CategoryGenerator.cs" />
+    <Compile Include="GeneratorStatus.cs" />
     <Compile Include="CustomerGenerator.cs" />
     <Compile Include="EmployeeGenerator.cs" />
     <Compile Include="GeneratorBase.cs" />
     <Compile Include="GeneratorResult.cs" />
+    <Compile Include="GeneratorValidationService.cs" />
     <Compile Include="GenreGenerator.cs" />
     <Compile Include="IGenerator.cs" />
     <Compile Include="InventoryGenerator.cs" />

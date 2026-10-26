@@ -8,6 +8,15 @@ namespace PAP.Mvc.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly GeneratorValidationService
+            _validationService;
+
+        public AdminController()
+        {
+            _validationService =
+                new GeneratorValidationService();
+        }
+
         private List<IGenerator> GetGenerators()
         {
             return new List<IGenerator>
@@ -46,24 +55,53 @@ namespace PAP.Mvc.Controllers
         public ActionResult Index()
         {
             var generators = GetGenerators();
-            return View(generators);
+
+            var statuses =
+                _validationService.GetStatuses(generators);
+
+            return View(statuses);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Generate(string entity)
         {
-            var generator = GetGenerators()
+            var generators = GetGenerators();
+
+            var generator = generators.FirstOrDefault(
+                item => string.Equals(
+                    item.EntityName,
+                    entity,
+                    StringComparison.OrdinalIgnoreCase));
+
+            if (generator == null)
+            {
+                TempData["Error"] =
+                    "No se encontró el generador solicitado.";
+
+                return RedirectToAction("Index");
+            }
+
+            var status = _validationService
+                .GetStatuses(generators)
                 .FirstOrDefault(item =>
                     string.Equals(
                         item.EntityName,
                         entity,
                         StringComparison.OrdinalIgnoreCase));
 
-            if (generator == null)
+            if (status == null)
             {
                 TempData["Error"] =
-                    "No se encontró el generador solicitado.";
+                    "No se pudo determinar el estado del generador.";
+
+                return RedirectToAction("Index");
+            }
+
+            if (!status.CanGenerate)
+            {
+                TempData["Error"] =
+                    status.ValidationMessage;
 
                 return RedirectToAction("Index");
             }

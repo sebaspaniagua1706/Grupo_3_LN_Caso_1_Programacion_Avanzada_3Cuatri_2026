@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PAP.Generators.IGenerator>
+﻿@model IEnumerable<PAP.Generators.GeneratorStatus>
 
 @{
     ViewBag.Title = "Administración";
@@ -7,15 +7,9 @@
 <h2>Generación de datos</h2>
 
 <p>
-    Desde esta pantalla puede generar los datos iniciales
-    de cada tabla.
+    Los botones se habilitan automáticamente cuando las
+    dependencias necesarias contienen datos.
 </p>
-
-<div class="alert alert-info">
-    Los datos deben generarse respetando el orden mostrado.
-    Si una tabla ya contiene registros, el sistema impedirá
-    generar datos duplicados.
-</div>
 
 @if (TempData["Success"] != null)
 {
@@ -38,7 +32,8 @@
         <tr>
             <th>Orden</th>
             <th>Entidad</th>
-            <th>Registros actuales</th>
+            <th>Dependencias</th>
+            <th>Registros</th>
             <th>Estado</th>
             <th>Acción</th>
         </tr>
@@ -49,45 +44,29 @@
             var position = 1;
         }
 
-        @foreach (var generator in Model)
+        @foreach (var item in Model)
         {
-            var currentRecords = generator.Count();
-            var hasData = currentRecords > 0;
-
-            var buttonClass = hasData
-                ? "btn btn-warning"
-                : "btn btn-primary";
-
-            var buttonText = hasData
-                ? "Verificar generación"
-                : "Generar datos";
-
             <tr>
                 <td>
                     @position
                 </td>
 
                 <td>
-                    @generator.EntityName
+                    @item.EntityName
                 </td>
 
                 <td>
-                    @currentRecords
+                    @item.DependenciesText
                 </td>
 
                 <td>
-                    @if (hasData)
-                    {
-                        <span class="badge bg-success">
-                            Con datos
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-secondary">
-                            Sin datos
-                        </span>
-                    }
+                    @item.CurrentRecords
+                </td>
+
+                <td>
+                    <span class="@item.StatusClass">
+                        @item.StatusText
+                    </span>
                 </td>
 
                 <td>
@@ -101,12 +80,24 @@
 
                         @Html.Hidden(
                                  "entity",
-                                 generator.EntityName)
+                                 item.EntityName)
 
-                        <button type="submit"
-                                class="@buttonClass">
-                            @buttonText
-                        </button>
+                        if (item.CanGenerate)
+                        {
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                @item.ButtonText
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button"
+                                    class="btn btn-secondary"
+                                    disabled="disabled"
+                                    title="@item.ValidationMessage">
+                                @item.ButtonText
+                            </button>
+                        }
                     }
                 </td>
             </tr>
