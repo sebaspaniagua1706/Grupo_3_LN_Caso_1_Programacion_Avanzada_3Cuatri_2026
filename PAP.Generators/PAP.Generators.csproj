@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PAP.Generators</RootNamespace>
     <AssemblyName>PAP.Generators</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,11 +46,14 @@
     <Compile Include="AuthorGenerator.cs" />
     <Compile Include="BookAuthorGenerator.cs" />
     <Compile Include="BookGenerator.cs" />
-    <Compile Include="CartltemGenerator.cs" />
+    <Compile Include="CartItemGenerator.cs" />
     <Compile Include="CategoryGenerator.cs" />
     <Compile Include="CustomerGenerator.cs" />
     <Compile Include="EmployeeGenerator.cs" />
+    <Compile Include="GeneratorBase.cs" />
+    <Compile Include="GeneratorResult.cs" />
     <Compile Include="GenreGenerator.cs" />
+    <Compile Include="IGenerator.cs" />
     <Compile Include="InventoryGenerator.cs" />
     <Compile Include="OrderGenerator.cs" />
     <Compile Include="OrderItemGenerator.cs" />
@@ -67,6 +71,18 @@
     <ProjectReference Include="..\PAP.Business\PAP.Business.csproj">
       <Project>{033e721b-af6d-4153-9f9c-ca71591bf947}</Project>
       <Name>PAP.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PAP.DataAccess\PAP.DataAccess.csproj">
+      <Project>{b9b34359-9d35-4cb6-b78a-4534016230e5}</Project>
+      <Name>PAP.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PAP.Models\PAP.Models.csproj">
+      <Project>{fd2a49ba-12b1-4b7d-b59f-5ba8ca98749b}</Project>
+      <Name>PAP.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PAP.Repositories\PAP.Repositories.csproj">
+      <Project>{2cfe9167-0530-473e-b3e6-749be28634fc}</Project>
+      <Name>PAP.Repositories</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

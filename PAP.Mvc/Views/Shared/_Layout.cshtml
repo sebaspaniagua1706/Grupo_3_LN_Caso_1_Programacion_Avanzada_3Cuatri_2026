@@ -1,102 +1,396 @@
 ﻿@*
     Ejemplo: Vistas compartidas
-    _Layout.cshtml es la plantilla común (nav, footer, CSS/JS). Las vistas hijas
-    insertan su contenido con @RenderBody().
+
+    _Layout.cshtml es la plantilla común de la aplicación.
+    Contiene el menú, el pie de página y las referencias CSS y JavaScript.
+    Las vistas insertan su contenido mediante RenderBody().
 *@
-@*
-    Ejemplo: Diseño de vistas
-    El Layout define la estructura HTML general; cada vista solo aporta el contenido de la página.
-*@
+
 <!DOCTYPE html>
+
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewBag.Title - PAP BookStore</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
+
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+
+            @Html.ActionLink(
+                     "PAP BookStore",
+                     "Index",
+                     "Home",
+                     new { area = "" },
+                     new { @class = "navbar-brand" })
+
+            <button type="button"
+                    class="navbar-toggler"
+                    data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse"
+                    title="Mostrar navegación"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Mostrar navegación">
+
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    <li class="nav-item">
+                        @Html.ActionLink(
+                                 "Home",
+                                 "Index",
+                                 "Home",
+                                 new { area = "" },
+                                 new { @class = "nav-link" })
+                    </li>
+
+                    <li class="nav-item">
+                        @Html.ActionLink(
+                                 "About",
+                                 "About",
+                                 "Home",
+                                 new { area = "" },
+                                 new { @class = "nav-link" })
+                    </li>
+
+                    <li class="nav-item">
+                        @Html.ActionLink(
+                                 "Contact",
+                                 "Contact",
+                                 "Home",
+                                 new { area = "" },
+                                 new { @class = "nav-link" })
+                    </li>
+
+                    <li class="nav-item">
+                        @Html.ActionLink(
+                                 "Admin",
+                                 "Index",
+                                 "Admin",
+                                 new { area = "" },
+                                 new { @class = "nav-link" })
+                    </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Demos</a>
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Demos
+                        </a>
+
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Library", "Index", "Library", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Cards", "Catalog", "Library", new { vista = "cards" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Crear", "Create", "Library", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Binder", "PrecioDemo", "Library", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            <li>
+                                @Html.ActionLink(
+                                         "Library",
+                                         "Index",
+                                         "Library",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Cards",
+                                         "Catalog",
+                                         "Library",
+                                         new { vista = "cards" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Crear",
+                                         "Create",
+                                         "Library",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Binder",
+                                         "PrecioDemo",
+                                         "Library",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catalog</a>
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Catalog
+                        </a>
+
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Books", "Index", "Books", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Authors", "Index", "Authors", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Book authors", "Index", "BookAuthors", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Publishers", "Index", "Publishers", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Categories", "Index", "Categories", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Genres", "Index", "Genres", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            <li>
+                                @Html.ActionLink(
+                                         "Books",
+                                         "Index",
+                                         "Books",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Authors",
+                                         "Index",
+                                         "Authors",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Book authors",
+                                         "Index",
+                                         "BookAuthors",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Publishers",
+                                         "Index",
+                                         "Publishers",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Categories",
+                                         "Index",
+                                         "Categories",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Genres",
+                                         "Index",
+                                         "Genres",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Customers</a>
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Customers
+                        </a>
+
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Customers", "Index", "Customers", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Addresses", "Index", "Addresses", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Shopping carts", "Index", "ShoppingCarts", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Cart items", "Index", "CartItems", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Reviews", "Index", "Reviews", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            <li>
+                                @Html.ActionLink(
+                                         "Customers",
+                                         "Index",
+                                         "Customers",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Addresses",
+                                         "Index",
+                                         "Addresses",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Shopping carts",
+                                         "Index",
+                                         "ShoppingCarts",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Cart items",
+                                         "Index",
+                                         "CartItems",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Reviews",
+                                         "Index",
+                                         "Reviews",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sales</a>
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Sales
+                        </a>
+
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Orders", "Index", "Orders", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Order items", "Index", "OrderItems", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Payments", "Index", "Payments", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            <li>
+                                @Html.ActionLink(
+                                         "Orders",
+                                         "Index",
+                                         "Orders",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Order items",
+                                         "Index",
+                                         "OrderItems",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Payments",
+                                         "Index",
+                                         "Payments",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventory</a>
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Inventory
+                        </a>
+
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Inventory", "Index", "Inventory", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Suppliers", "Index", "Suppliers", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Purchase orders", "Index", "PurchaseOrders", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Purchase order items", "Index", "PurchaseOrderItems", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            <li>
+                                @Html.ActionLink(
+                                         "Inventory",
+                                         "Index",
+                                         "Inventory",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Suppliers",
+                                         "Index",
+                                         "Suppliers",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Purchase orders",
+                                         "Index",
+                                         "PurchaseOrders",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Purchase order items",
+                                         "Index",
+                                         "PurchaseOrderItems",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Staff</a>
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Staff
+                        </a>
+
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Employees", "Index", "Employees", new { area = "" }, new { @class = "dropdown-item" })</li>
-                            <li>@Html.ActionLink("Roles", "Index", "Roles", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            <li>
+                                @Html.ActionLink(
+                                         "Employees",
+                                         "Index",
+                                         "Employees",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
+
+                            <li>
+                                @Html.ActionLink(
+                                         "Roles",
+                                         "Index",
+                                         "Roles",
+                                         new { area = "" },
+                                         new { @class = "dropdown-item" })
+                            </li>
                         </ul>
                     </li>
+
                 </ul>
             </div>
         </div>
     </nav>
+
     <div class="container body-content">
         @RenderBody()
+
         <hr />
+
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>
+                &copy; @DateTime.Now.Year - PAP BookStore
+            </p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,33 +1,46 @@
-﻿using System;
+﻿using PAP.DataAccess;
+using PAP.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PAP.Business;
 
 namespace PAP.Generators
 {
-    internal class AddressGenerator
+    public class AddressGenerator : GeneratorBase<Address>
     {
-        private readonly AddressManager _repository; //Instanciamos el AddressManager pa manejar el repo y poder usar los metodos
+        private readonly CustomerRepository _customerRepository;
 
-        public AddressGenerator() //Constructor de nuestro AddressGenerator para empezar a utilizar los metodos de este
+        public AddressGenerator() : base(new AddressRepository())
         {
-            _repository = new AddressManager();
+            _customerRepository = new CustomerRepository();
         }
 
-        public void GenerateMassData()
+        public override string EntityName
         {
+            get { return "Addresses"; }
+        }
 
-            if (true) //Verificacion de si ya tiene datos
+        protected override IEnumerable<Address> CreateData()
+        {
+            var customers = _customerRepository.GetAll().ToList();
+
+            if (!customers.Any())
             {
-                Console.WriteLine("Error, la tabla ya tiene datos");
-                return; //Si ya tiene datos, no hace nada
+                throw new InvalidOperationException(
+                    "Primero debe generar Customers.");
             }
 
-
-
+            return customers.Select((customer, index) => new Address
+            {
+                CustomerId = customer.Id,
+                AddressType = "Casa",
+                Street = "Calle principal, casa " + (index + 1),
+                City = "San José",
+                State = "San José",
+                PostalCode = "10101",
+                Country = "Costa Rica",
+                IsDefault = true
+            }).ToList();
         }
-
     }
 }

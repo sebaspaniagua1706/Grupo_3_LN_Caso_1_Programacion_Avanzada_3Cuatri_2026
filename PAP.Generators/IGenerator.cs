@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace PAP.Generators
 {
-    internal class CartltemGenerator
+    public interface IGenerator
     {
+        string EntityName { get; }
+        int Count();
+        GeneratorResult Generate();
     }
 }
